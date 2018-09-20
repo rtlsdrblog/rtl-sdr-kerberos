@@ -576,6 +576,17 @@ void rtlsdr_set_gpio_output(rtlsdr_dev_t *dev, uint8_t gpio)
 	rtlsdr_write_reg(dev, SYSB, GPOE, r | gpio, 1);
 }
 
+int rtlsdr_set_gpio(rtlsdr_dev_t *dev, int on, int gpio)
+{
+        if (!dev)
+                return -1;
+
+        rtlsdr_set_gpio_output(dev, gpio);
+        rtlsdr_set_gpio_bit(dev, gpio, on);
+
+        return 1;
+}
+
 void rtlsdr_set_i2c_repeater(rtlsdr_dev_t *dev, int on)
 {
 	rtlsdr_demod_write_reg(dev, 1, 0x01, on ? 0x18 : 0x10, 1);
@@ -1281,6 +1292,14 @@ int rtlsdr_get_offset_tuning(rtlsdr_dev_t *dev)
 		return -1;
 
 	return (dev->offs_freq) ? 1 : 0;
+}
+
+int rtlsdr_set_dithering(rtlsdr_dev_t *dev, int dither)
+{
+        if (dev->tuner_type == RTLSDR_TUNER_R820T) {
+                return r82xx_set_dither(&dev->r82xx_p, dither);
+        }
+        return 1;
 }
 
 static rtlsdr_dongle_t *find_known_device(uint16_t vid, uint16_t pid)

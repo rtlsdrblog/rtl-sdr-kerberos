@@ -452,6 +452,13 @@ static int r82xx_set_pll(struct r82xx_priv *priv, uint32_t freq)
 	if (rc < 0)
 		return rc;
 
+	/* Disable Dither */
+	val = 0x00;
+	if(priv->disable_dither)
+		val |= 0x10;
+
+	rc = r82xx_write_reg_mask(priv, 0x12, val, 0x18);
+
 	/* Calculate divider */
 	while (mix_div <= 64) {
 		if (((freq_khz * mix_div) >= vco_min) &&
@@ -1119,6 +1126,12 @@ err:
 	if (rc < 0)
 		fprintf(stderr, "%s: failed=%d\n", __FUNCTION__, rc);
 	return rc;
+}
+
+int r82xx_set_dither(struct r82xx_priv *priv, int dither)
+{
+        priv->disable_dither = !dither;
+        return 0;
 }
 
 /*

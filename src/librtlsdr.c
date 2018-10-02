@@ -1767,7 +1767,7 @@ static int _rtlsdr_alloc_async_buffers(rtlsdr_dev_t *dev)
 	dev->xfer_buf = malloc(dev->xfer_buf_num * sizeof(unsigned char *));
 	memset(dev->xfer_buf, 0, dev->xfer_buf_num * sizeof(unsigned char *));
 
-#if defined (__linux__) && LIBUSB_API_VERSION >= 0x01000105
+/*#if defined (__linux__) && LIBUSB_API_VERSION >= 0x01000105
 	fprintf(stderr, "Allocating %d zero-copy buffers\n", dev->xfer_buf_num);
 
 	dev->use_zerocopy = 1;
@@ -1784,8 +1784,8 @@ static int _rtlsdr_alloc_async_buffers(rtlsdr_dev_t *dev)
 		}
 	}
 
-	/* zero-copy buffer allocation failed (partially or completely)
-	 * we need to free the buffers again if already allocated */
+	// zero-copy buffer allocation failed (partially or completely)
+	// we need to free the buffers again if already allocated
 	if (!dev->use_zerocopy) {
 		for (i = 0; i < dev->xfer_buf_num; ++i) {
 			if (dev->xfer_buf[i])
@@ -1794,7 +1794,7 @@ static int _rtlsdr_alloc_async_buffers(rtlsdr_dev_t *dev)
 						    dev->xfer_buf_len);
 		}
 	}
-#endif
+#endif*/
 
 	/* no zero-copy available, allocate buffers in userspace */
 	if (!dev->use_zerocopy) {
@@ -1831,11 +1831,11 @@ static int _rtlsdr_free_async_buffers(rtlsdr_dev_t *dev)
 		for (i = 0; i < dev->xfer_buf_num; ++i) {
 			if (dev->xfer_buf[i]) {
 				if (dev->use_zerocopy) {
-#if defined (__linux__) && LIBUSB_API_VERSION >= 0x01000105
+/*#if defined (__linux__) && LIBUSB_API_VERSION >= 0x01000105
 					libusb_dev_mem_free(dev->devh,
 							    dev->xfer_buf[i],
 							    dev->xfer_buf_len);
-#endif
+#endif*/
 				} else {
 					free(dev->xfer_buf[i]);
 				}

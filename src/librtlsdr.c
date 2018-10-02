@@ -1556,7 +1556,7 @@ int rtlsdr_open(rtlsdr_dev_t **out_dev, uint32_t index)
 	/* Probe tuners */
 	rtlsdr_set_i2c_repeater(dev, 1);
 
-	reg = rtlsdr_i2c_read_reg(dev, E4K_I2C_ADDR, E4K_CHECK_ADDR);
+/*	reg = rtlsdr_i2c_read_reg(dev, E4K_I2C_ADDR, E4K_CHECK_ADDR);
 	if (reg == E4K_CHECK_VAL) {
 		fprintf(stderr, "Found Elonics E4000 tuner\n");
 		dev->tuner_type = RTLSDR_TUNER_E4000;
@@ -1575,14 +1575,17 @@ int rtlsdr_open(rtlsdr_dev_t **out_dev, uint32_t index)
 		fprintf(stderr, "Found Rafael Micro R820T tuner\n");
 		dev->tuner_type = RTLSDR_TUNER_R820T;
 		goto found;
-	}
+	}*/
+	
+	dev->tuner_type = RTLSDR_TUNER_R820T;
+	goto found;
 
-	reg = rtlsdr_i2c_read_reg(dev, R828D_I2C_ADDR, R82XX_CHECK_ADDR);
+/*	reg = rtlsdr_i2c_read_reg(dev, R828D_I2C_ADDR, R82XX_CHECK_ADDR);
 	if (reg == R82XX_CHECK_VAL) {
 		fprintf(stderr, "Found Rafael Micro R828D tuner\n");
 		dev->tuner_type = RTLSDR_TUNER_R828D;
 		goto found;
-	}
+	}*/
 
 	/* initialise GPIOs */
 	rtlsdr_set_gpio_output(dev, 4);

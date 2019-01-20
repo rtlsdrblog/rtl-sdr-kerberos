@@ -581,7 +581,7 @@ int rtlsdr_set_gpio(rtlsdr_dev_t *dev, int on, int gpio)
         if (!dev)
                 return -1;
 
-        rtlsdr_set_gpio_output(dev, gpio);
+        //rtlsdr_set_gpio_output(dev, gpio);
         rtlsdr_set_gpio_bit(dev, gpio, on);
 
         return 1;
@@ -1589,6 +1589,7 @@ int rtlsdr_open(rtlsdr_dev_t **out_dev, uint32_t index)
 
 	/* initialise GPIOs */
 	rtlsdr_set_gpio_output(dev, 4);
+	rtlsdr_set_gpio_output(dev, 0);
 
 	/* reset tuner before probing */
 	rtlsdr_set_gpio_bit(dev, 4, 1);

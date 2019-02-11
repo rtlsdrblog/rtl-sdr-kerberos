@@ -39,7 +39,7 @@
 
 /* Those initial values start from REG_SHADOW_START */
 static const uint8_t r82xx_init_array[NUM_REGS] = {
-	0x83, 0x32, 0x75,			/* 05 to 07 */
+	0x9F, 0x32, 0x75,			/* 05 to 07 */
 	0xc0, 0x40, 0xd6, 0x6c,			/* 08 to 0b */
 	0xf5, 0x63, 0x75, 0x68,			/* 0c to 0f */
 	0x6c, 0x83, 0x80, 0x00,			/* 10 to 13 */
@@ -448,7 +448,8 @@ static int r82xx_set_pll(struct r82xx_priv *priv, uint32_t freq)
 		return rc;
 
 	/* set VCO current = 100 */
-	rc = r82xx_write_reg_mask(priv, 0x12, 0x80, 0xe0);
+	//rc = r82xx_write_reg_mask(priv, 0x12, 0x80, 0xe0);
+	rc = r82xx_write_reg_mask(priv, 0x12, 0x00, 0xe0);
 	if (rc < 0)
 		return rc;
 
@@ -545,12 +546,12 @@ static int r82xx_set_pll(struct r82xx_priv *priv, uint32_t freq)
 		if (data[2] & 0x40)
 			break;
 
-		if (!i) {
-			/* Didn't lock. Increase VCO current */
+		/**if (!i) {
+			// Didn't lock. Increase VCO current
 			rc = r82xx_write_reg_mask(priv, 0x12, 0x60, 0xe0);
 			if (rc < 0)
 				return rc;
-		}
+		}**/
 	}
 
 	if (!(data[2] & 0x40)) {

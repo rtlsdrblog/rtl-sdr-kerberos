@@ -42,7 +42,7 @@ static const uint8_t r82xx_init_array[NUM_REGS] = {
 	0x9F, 0x32, 0x75,			/* 05 to 07 */
 	0xc0, 0x40, 0xd6, 0x6c,			/* 08 to 0b */
 	0xf5, 0x63, 0x75, 0x68,			/* 0c to 0f */
-	0x6c, 0x83, 0x80, 0x00,			/* 10 to 13 */
+	0x6c, 0x43, 0x06, 0x00,			/* 10 to 13 */
 	0x0f, 0x00, 0xc0, 0xB0,			/* 14 to 17 */
 	0x48, 0xcc, 0x60, 0x00,			/* 18 to 1b */
 	0x54, 0xae, 0x4a, 0xc0			/* 1c to 1f */
@@ -449,9 +449,9 @@ static int r82xx_set_pll(struct r82xx_priv *priv, uint32_t freq)
 
 	/* set VCO current = 100 */
 	//rc = r82xx_write_reg_mask(priv, 0x12, 0x80, 0xe0);
-	rc = r82xx_write_reg_mask(priv, 0x12, 0x00, 0xe0);
-	if (rc < 0)
-		return rc;
+	//rc = r82xx_write_reg_mask(priv, 0x12, 0x00, 0xe0);
+	//if (rc < 0)
+	//	return rc;
 
 	/* Disable Dither */
 	val = 0x00;
@@ -668,12 +668,12 @@ static int r82xx_sysfreq_sel(struct r82xx_priv *priv, uint32_t freq,
 	if (rc < 0)
 		return rc;
 
-	rc = r82xx_write_reg_mask(priv, 0x11, cp_cur, 0x38);
-	if (rc < 0)
-		return rc;
-	rc = r82xx_write_reg_mask(priv, 0x17, div_buf_cur, 0xB0);
-	if (rc < 0)
-		return rc;
+	//rc = r82xx_write_reg_mask(priv, 0x11, cp_cur, 0x38);
+	//if (rc < 0)
+	//	return rc;
+	//rc = r82xx_write_reg_mask(priv, 0x17, div_buf_cur, 0xB0);
+	//if (rc < 0)
+	//	return rc;
 	rc = r82xx_write_reg_mask(priv, 0x0a, filter_cur, 0x60);
 	if (rc < 0)
 		return rc;

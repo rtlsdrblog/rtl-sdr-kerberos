@@ -353,6 +353,7 @@ static rtlsdr_dongle_t known_devices[] = {
 	{ 0x1f4d, 0xc803, "Lifeview LV5TDeluxe" },
 	{ 0x1f4d, 0xd286, "MyGica TD312" },
 	{ 0x1f4d, 0xd803, "PROlectrix DV107669" },
+	{ 0xffff, 0xffff, "Generic RTL2832U" },
 };
 
 #define DEFAULT_BUF_NUMBER	15
